@@ -1,4 +1,9 @@
-# Escriba un programa que pida al usuario que escriba su nombre, y lo salude llamándolo por su nombre.
+# Escriba un programa que reciba como entrada el radio de un círculo y entregue como salida su perímetro y su área:
 
-name = input('Put your name please: ')
-print(f'''Hello {name}, I hope you're doing great!''')
+radius = float(input('Give the radius of the circunference please: '))
+perimeter = ((radius * 2)* 3.141592)
+Area = ((radius**2)*(3.141592))
+print(f"""
+    The perimeter of the circunference is {round(perimeter,1)}
+    The area of the circunference is {round(Area, 1)}
+""")
