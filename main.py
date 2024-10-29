@@ -1,9 +1,9 @@
-# Escriba un programa que reciba como entrada el radio de un círculo y entregue como salida su perímetro y su área:
-
-radius = float(input('Give the radius of the circunference please: '))
-perimeter = ((radius * 2)* 3.141592)
-Area = ((radius**2)*(3.141592))
+# Escriba un programa que calcule el promedio de 4 notas ingresadas por el usuario:
+firstGrade = float(input('Enter the first grade: '))
+secondGrade = float(input('Enter the second grade: '))
+thirdGrade = float(input('Enter the third grade: '))
+fourthGrade = float(input('Enter the fourth grade: '))
+sumAverageGrade = (((firstGrade)+(secondGrade)+(thirdGrade)+(fourthGrade)) / 4)
 print(f"""
-    The perimeter of the circunference is {round(perimeter,1)}
-    The area of the circunference is {round(Area, 1)}
+    The next one is the average grade: {sumAverageGrade}
 """)
