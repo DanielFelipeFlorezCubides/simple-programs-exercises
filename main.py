@@ -1,16 +1,70 @@
-# Escriba un programa que entregue la parte decimal de un número real ingresado por el usuario
+# Cuando un huevo es hervido en agua, las proteínas comienzan a coagularse cuando 
+# la temperatura sobrepasa un punto crítico. A medida que la temperatura aumenta, las reacciones se aceleran.
 
-def obtener_parte_decimal(numero):
+# En la clara, las proteínas comienzan a coagularse para temperaturas sobre 63°C, mientras que en la yema 
+# lo hacen para temperaturas sobre 70°C. Para hacer un huevo a la copa, la clara debe haber sido calentada lo 
+# suficiente para coagularse a más de 63°C, pero la yema no debe sobrepasar los 70°C para evitar obtener un huevo duro.
 
-  parte_entera = int(numero)
-  parte_decimal = numero - parte_entera
-  return parte_decimal * (1 if numero >= 0 else -1)
+# El tiempo en segundos que toma al centro de la yema alcanzar Ty
+# °C está dado por la fórmula:
 
-# Solicita al usuario que ingrese un número real
-numero = float(input("Give me a real number: "))
+# t=M^2/3 cρ^1/3 Kπ2(4π/3)^2/3 * ln[0.76To−TwTy−Tw],
+# donde M es la masa del huevo, ρ su densidad, c su capacidad calorífica específica y K
+# su conductividad térmica. Algunos valores típicos son:
 
-# Llama a la función para obtener la parte decimal
-parte_decimal = obtener_parte_decimal(numero)
+# M=47[g] para un huevo pequeño y M=67[g] para uno grande,
+# ρ=1.038[gcm−3], c=3.7[Jg−1K−1], y K=5.4⋅10−3[Wcm−1K−1].
+# Tw es la temperatura de ebullición del agua y To la temperatura original del huevo antes de meterlo al agua, ambos en grados Celsius.
 
-# Imprime la parte decimal
-print("The decimal of the number is:", parte_decimal)
+# Escriba un programa que reciba como entrada la temperatura original del huevo y muestre como salida 
+# el tiempo en segundos que le toma alcanzar la temperatura máxima para prepararlo a la copa.
+
+import math
+
+# Constantes
+M_pequeño = 47  # Masa de un huevo pequeño (g)
+M_grande = 67  # Masa de un huevo grande (g)
+rho = 1.038  # Densidad del huevo (g/cm³)
+c = 3.7  # Capacidad calorífica específica del huevo (J/g·K)
+K = 5.4e-3  # Conductividad térmica del huevo (W/cm·K)
+Tw = 100  # Temperatura de ebullición del agua (°C)
+Ty_max = 70  # Temperatura máxima para la yema (°C)
+
+def tiempo_coccion(M, To):
+  """
+  Calcula el tiempo en segundos que tarda el centro de la yema en alcanzar la temperatura máxima.
+
+  Args:
+    M: Masa del huevo (g).
+    To: Temperatura original del huevo (°C).
+
+  Returns:
+    Tiempo en segundos.
+  """
+
+  # Calcula el tiempo utilizando la fórmula proporcionada
+  t = (M**(2/3) * c * rho**(1/3) * K * math.pi**2 * (4 * math.pi / 3)**(2/3) * 
+       math.log((0.76 * To - Tw) / (Ty_max - Tw)))
+
+  return t
+
+# Solicita al usuario la temperatura original del huevo
+To = float(input("Ingrese la temperatura original del huevo (°C): "))
+
+# Solicita al usuario el tamaño del huevo
+tamaño = input("Ingrese el tamaño del huevo (pequeño/grande): ")
+
+# Selecciona la masa del huevo según el tamaño
+if tamaño.lower() == "pequeño":
+  M = M_pequeño
+elif tamaño.lower() == "grande":
+  M = M_grande
+else:
+  print("Tamaño de huevo inválido. Por favor, ingrese 'pequeño' o 'grande'.")
+  exit()
+
+# Calcula el tiempo de cocción
+tiempo = tiempo_coccion(M, To)
+
+# Imprime el resultado
+print(f"El tiempo de cocción es:", tiempo, "segundos.")
