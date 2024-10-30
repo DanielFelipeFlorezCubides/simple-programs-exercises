@@ -8,7 +8,7 @@
 # El tiempo en segundos que toma al centro de la yema alcanzar Ty
 # °C está dado por la fórmula:
 
-# t=M^2/3 cρ^1/3 Kπ2(4π/3)^2/3 * ln[0.76To−TwTy−Tw],
+# t= M^2/3 cρ^1/3 / Kπ2(4π/3)^2/3 * ln[0.76To−Tw/Ty−Tw],
 # donde M es la masa del huevo, ρ su densidad, c su capacidad calorífica específica y K
 # su conductividad térmica. Algunos valores típicos son:
 
@@ -21,50 +21,32 @@
 
 import math
 
+import math
+
 # Constantes
-M_pequeño = 47  # Masa de un huevo pequeño (g)
-M_grande = 67  # Masa de un huevo grande (g)
-rho = 1.038  # Densidad del huevo (g/cm³)
-c = 3.7  # Capacidad calorífica específica del huevo (J/g·K)
-K = 5.4e-3  # Conductividad térmica del huevo (W/cm·K)
-Tw = 100  # Temperatura de ebullición del agua (°C)
-Ty_max = 70  # Temperatura máxima para la yema (°C)
+M_pequeño = 47  # Masa del huevo pequeño [g]
+M_grande = 67  # Masa del huevo grande [g]
+rho = 1.038  # Densidad del huevo [g/cm^3]
+c = 3.7  # Capacidad calorífica específica del huevo [J/g*K]
+K = 5.4e-3  # Conductividad térmica del huevo [W/cm*K]
+Tw = 100  # Temperatura de ebullición del agua [°C]
+Ty_max = 70  # Temperatura máxima para la yema [°C]
 
-def tiempo_coccion(M, To):
-  """
-  Calcula el tiempo en segundos que tarda el centro de la yema en alcanzar la temperatura máxima.
+# Obtener la temperatura original del huevo
+To = float(input("Ingrese la temperatura original del huevo (en grados Celsius): "))
 
-  Args:
-    M: Masa del huevo (g).
-    To: Temperatura original del huevo (°C).
-
-  Returns:
-    Tiempo en segundos.
-  """
-
-  # Calcula el tiempo utilizando la fórmula proporcionada
-  t = (M**(2/3) * c * rho**(1/3) * K * math.pi**2 * (4 * math.pi / 3)**(2/3) * 
-       math.log((0.76 * To - Tw) / (Ty_max - Tw)))
-
-  return t
-
-# Solicita al usuario la temperatura original del huevo
-To = float(input("Ingrese la temperatura original del huevo (°C): "))
-
-# Solicita al usuario el tamaño del huevo
-tamaño = input("Ingrese el tamaño del huevo (pequeño/grande): ")
-
-# Selecciona la masa del huevo según el tamaño
+# Elegir el tamaño del huevo
+tamaño = input("Ingrese el tamaño del huevo (pequeño o grande): ")
 if tamaño.lower() == "pequeño":
-  M = M_pequeño
+    M = M_pequeño
 elif tamaño.lower() == "grande":
-  M = M_grande
+    M = M_grande
 else:
-  print("Tamaño de huevo inválido. Por favor, ingrese 'pequeño' o 'grande'.")
-  exit()
+    print("Tamaño de huevo inválido.")
+    exit()
 
-# Calcula el tiempo de cocción
-tiempo = tiempo_coccion(M, To)
+# Calcular el tiempo en segundos
+t = ((M**2 / 3) * (c * rho**(1/3)) / (K * math.pi**2 * (4 * math.pi / 3)**(2/3))) * (math.log((0.76 * To - Tw) / (Ty_max - Tw))) * math.pow(10, -2)
 
-# Imprime el resultado
-print(f"El tiempo de cocción es:", tiempo, "segundos.")
+# Mostrar el resultado
+print(f"El tiempo para cocinar el huevo a la copa es: {t:.2f} segundos")
