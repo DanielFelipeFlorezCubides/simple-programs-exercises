@@ -1,25 +1,14 @@
-# Escriba un programa que pida al usuario un entero de tres dígitos, y entregue el número con los dígitos en orden inverso:
+# Escriba un programa que reciba como entrada las longitudes de los dos catetos a y b
+# de un triángulo rectángulo, y que entregue como salida el largo de la hipotenusa c
+# del triangulo, dado por el teorema de Pitágoras: c2=a2+b2
 
-def invertir_numero(numero):
+import math
+# Variables declaration input
+a = int(input('Give me the lenght of the first side of the triangle: '))
+b = int(input('Give me the lenght of the second side of the triangle: '))
 
-  # Verifica si el número tiene tres dígitos
-  if 100 <= numero <= 999:
+# Processing
+c = math.sqrt(((a**2)+(b**2)))
 
-    # Obtiene los dígitos individuales
-    centenas = numero // 100
-    decenas = (numero % 100) // 10
-    unidades = numero % 10
-
-    # Invierte los dígitos
-    numero_invertido = unidades * 100 + decenas * 10 + centenas
-
-    return numero_invertido
-  else:
-    return "The number must has 3 digits."
-
-# Obtiene el número del usuario
-numero = int(input("Put a 3 digits number: "))
-
-# Invierte el número y muestra el resultado
-numero_invertido = invertir_numero(numero)
-print("The inverted number is:", numero_invertido)
+# Output
+print(f'The hypotenuse of the trinagle is: {c}')
